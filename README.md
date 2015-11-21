@@ -9,6 +9,8 @@ Enter `screenlog.js`. `screenlog.js` brings the developer console right on your 
 
 ### [Example](https://github.com/chinchang/screenlog.js/blob/master/example.html)
 
+![Screenshot](/screenshot.png)
+
 Installation
 -----
 
@@ -21,7 +23,7 @@ screenLog.init();
 ```
 
 And you are done!
-**By default, every `console.log` in your app now starts logging on the screen.**
+**By default, every next `console.log` in your app now starts logging on the screen. Or you can use screenLog.log() instead.**
 
 
 Public API
