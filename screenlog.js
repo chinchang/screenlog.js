@@ -35,7 +35,7 @@
 
 	function clear() {
 		if (!isInitialized) { throw 'You need to call `screenLog.init()` first.'; }
-		logEl.innerHTML = ''
+		logEl.innerHTML = '';
 	}
 
 	function init(options){
@@ -55,5 +55,5 @@
 		init: init,
 		log: log,
 		clear: clear
-	}
+	};
 })();
