@@ -11,12 +11,12 @@ Enter `screenlog.js`. `screenlog.js` brings the developer console right on your 
 
 ![Screenshot](/screenshot.png)
 
-Installation
+Usage
 -----
 
 Do `npm install screenlog` or [download the project](https://github.com/chinchang/screenlog.js/archive/master.zip).
 
-Drop `screenlog.js` into your web application and initialize it with:
+Drop `dist/screenlog.min.js` into your web application and initialize it with:
 
 ```js
 screenLog.init();
