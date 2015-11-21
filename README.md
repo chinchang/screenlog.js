@@ -7,12 +7,12 @@ Ever faced a situation where you said "Why doesn't this bug show up when develop
 
 Enter `screenlog.js`. `screenlog.js` brings the developer console right on your screen so that you can do logging without having the developer console open always.
 
-### [DEMO](http://kushagragour.in/lab/ctajs)
+### [Example](https://github.com/chinchang/screenlog.js/blob/master/example.html)
 
 Installation
 -----
 
-`npm install screenlog`
+Do `npm install screenlog` or [download the project](https://github.com/chinchang/screenlog.js/archive/master.zip).
 
 Drop `screenlog.js` into your web application and initialize it with:
 
@@ -20,7 +20,8 @@ Drop `screenlog.js` into your web application and initialize it with:
 screenLog.init();
 ```
 
-And you are done! By default, every `console.log` in your now starts logging on the screen.
+And you are done!
+**By default, every `console.log` in your app now starts logging on the screen.**
 
 
 Public API
@@ -30,7 +31,7 @@ Public API
 
 Animate an element `sourceElement` onto `targetElement`.
 
-* `options` - A map of additional options to control the animation behaviour.
+* `options` - A map of additional options.
 	* `color` - Text color. Default is `lightgreen`.
 	* `bgColor` - Background color of the log panel. Default is `black`.
 	* `releaseConsole` - By default console.log is overridden to log on screen. You can avoid this behaviour by setting `releaseConsole` to `true` and instead use `screenLog.log()` api. Default is `false`.
