@@ -1,6 +1,6 @@
 {
   "name": "screenlog",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Bring console.log on the screen",
   "main": "screenlog.js",
   "scripts": {

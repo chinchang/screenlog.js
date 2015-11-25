@@ -1,4 +1,4 @@
-/*! screenlog - v0.1.0 - 2015-11-21
+/*! screenlog - v0.1.1 - 2015-11-25
 * https://github.com/chinchang/screenlog.js
 * Copyright (c) 2015 Kushagra Gour; Licensed MIT */
 
