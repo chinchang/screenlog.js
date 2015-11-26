@@ -10,7 +10,8 @@
 	}
 
 	function createPanel(options) {
-		if (!isInitialized) { throw 'You need to call `screenLog.init()` first.'; }
+		checkInitialized();
+
 		options = options || {};
 		options.bgColor = options.bgColor || 'black';
 		options.color = options.color || 'lightgreen';
@@ -20,7 +21,6 @@
 	}
 
 	function log() {
-		if (!isInitialized) { throw 'You need to call `screenLog.init()` first.'; }
 		var el = createElement( 'div', 'line-height:18px;background:' +
 			(logEl.children.length % 2 ? 'rgba(255,255,255,0.1)' : '')); // zebra lines
 		var val = [].slice.call(arguments).reduce(function(prev, arg) {
@@ -34,7 +34,6 @@
 	}
 
 	function clear() {
-		if (!isInitialized) { throw 'You need to call `screenLog.init()` first.'; }
 		logEl.innerHTML = '';
 	}
 
@@ -50,10 +49,29 @@
 		}
 	}
 
+	/**
+	*  Checking if isInitialized is set
+	*/
+	function checkInitialized(){
+		if(!isInitialized){
+			throw 'You need to call `screenLog.init()` first.';
+		}
+	}
+
+	/**
+	*  Decorator for checking if isInitialized is set
+	*/
+	function checkInitDecorator(f){
+		return function(){
+			checkInitialized();
+			return f.apply(this, arguments);
+		}
+	}
+
 	// Public API
 	window.screenLog = {
 		init: init,
-		log: log,
-		clear: clear
+		log: checkInitDecorator(log),
+		clear: checkInitDecorator(clear)
 	};
 })();
