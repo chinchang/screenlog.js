@@ -38,7 +38,7 @@
 	}
 
 	function init(options){
-		if(isInitialized){
+		if (isInitialized) {
 			return;
 		}
 
@@ -57,7 +57,7 @@
 	 * Checking if isInitialized is set
 	 */
 	function checkInitialized(){
-		if(!isInitialized){
+		if (!isInitialized){
 			throw 'You need to call `screenLog.init()` first.';
 		}
 	}
