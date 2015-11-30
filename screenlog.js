@@ -38,6 +38,10 @@
 	}
 
 	function init(options){
+		if(isInitialized){
+			return;
+		}
+
 		isInitialized = true;
 		options = options || {};
 		logEl = createPanel(options);
