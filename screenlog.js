@@ -38,6 +38,10 @@
 	}
 
 	function init(options){
+		if (isInitialized) {
+			return;
+		}
+
 		isInitialized = true;
 		options = options || {};
 		logEl = createPanel(options);
@@ -53,7 +57,7 @@
 	 * Checking if isInitialized is set
 	 */
 	function checkInitialized(){
-		if(!isInitialized){
+		if (!isInitialized){
 			throw 'You need to call `screenLog.init()` first.';
 		}
 	}
