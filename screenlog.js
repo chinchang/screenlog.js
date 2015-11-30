@@ -50,8 +50,8 @@
 	}
 
 	/**
-	*  Checking if isInitialized is set
-	*/
+	 * Checking if isInitialized is set
+	 */
 	function checkInitialized(){
 		if(!isInitialized){
 			throw 'You need to call `screenLog.init()` first.';
@@ -59,13 +59,16 @@
 	}
 
 	/**
-	*  Decorator for checking if isInitialized is set
-	*/
-	function checkInitDecorator(f){
+	 */
+	/**
+	 * Decorator for checking if isInitialized is set
+	 * @param  {Function} fn Fn to decorate
+	 */
+	function checkInitDecorator(fn){
 		return function(){
 			checkInitialized();
-			return f.apply(this, arguments);
-		}
+			return fn.apply(this, arguments);
+		};
 	}
 
 	// Public API
