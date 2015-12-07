@@ -1,7 +1,8 @@
 (function () {
 
 	var logEl,
-		isInitialized = false;
+		isInitialized = false,
+		console_log_clone;
 
 	function createElement( tag, css ) {
 		var element = document.createElement( tag );
@@ -28,6 +29,9 @@
 		logEl.appendChild(el);
 		// Scroll to last element
 		logEl.scrollTop = logEl.scrollHeight - logEl.clientHeight;
+
+		// Write the argument list to the console
+		console_log_clone.apply(console, arguments);
 	}
 
 	function clear() {
@@ -43,6 +47,7 @@
 		document.body.appendChild(logEl);
 
 		if (!options.freeConsole) {
+			console_log_clone = console.log;
 			console.log = log;
 			console.clear = clear;
 		}
