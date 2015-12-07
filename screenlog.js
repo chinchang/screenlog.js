@@ -10,8 +10,7 @@
 	}
 
 	function createPanel(options) {
-		checkInitialized();
-
+		
 		options = options || {};
 		options.bgColor = options.bgColor || 'black';
 		options.color = options.color || 'lightgreen';
