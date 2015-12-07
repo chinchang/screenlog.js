@@ -2,7 +2,7 @@
 
 	var logEl,
 		isInitialized = false,
-		console_log_clone;
+		_console = {}; // backup console obj to contain references of overridden fns.
 
 	function createElement( tag, css ) {
 		var element = document.createElement( tag );
@@ -31,11 +31,12 @@
 		logEl.scrollTop = logEl.scrollHeight - logEl.clientHeight;
 
 		// Write the argument list to the console
-		console_log_clone.apply(console, arguments);
+		_console.log.apply(console, arguments);
 	}
 
 	function clear() {
 		logEl.innerHTML = '';
+		_console.clear.call(console);
 	}
 
 	function init(options){
@@ -47,7 +48,9 @@
 		document.body.appendChild(logEl);
 
 		if (!options.freeConsole) {
-			console_log_clone = console.log;
+			// Backup actual fns to keep it working together
+			_console.log = console.log;
+			_console.clear = console.clear;
 			console.log = log;
 			console.clear = clear;
 		}
