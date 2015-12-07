@@ -10,7 +10,6 @@
 	}
 
 	function createPanel(options) {
-		
 		options.bgColor = options.bgColor || 'black';
 		options.color = options.color || 'lightgreen';
 		options.css = options.css || '';
@@ -36,9 +35,7 @@
 	}
 
 	function init(options){
-		if (isInitialized) {
-			return;
-		}
+		if (isInitialized) { return; }
 
 		isInitialized = true;
 		options = options || {};
