@@ -14,7 +14,7 @@ Enter `screenlog.js`. `screenlog.js` brings the developer console right on your 
 Usage
 -----
 
-Do `npm install screenlog` or [download the project](https://github.com/chinchang/screenlog.js/archive/master.zip).
+Do `npm install screenlog` or `bower install screenlog` or [download the project](https://github.com/chinchang/screenlog.js/archive/master.zip).
 
 Drop `dist/screenlog.min.js` into your web application and initialize it with:
 
@@ -23,7 +23,7 @@ screenLog.init();
 ```
 
 And you are done!
-**By default, every next `console.log` in your app now starts logging on the screen. Or you can use screenLog.log() instead.**
+**By default, every next `console.log` in your app now starts logging on the screen too in addition to the console. Or you can use screenLog.log() instead to just log on the screen.**
 
 
 Public API
@@ -31,7 +31,7 @@ Public API
 
 ### screenLog.init([options])
 
-Animate an element `sourceElement` onto `targetElement`.
+Intializes the screen logger. It creates a customizable panel on the screen.
 
 * `options` - A map of additional options.
 	* `color` - Text color. Default is `lightgreen`.
@@ -46,7 +46,11 @@ Logs a message on the screen.
 
 ### screenLog.clear()
 
-Clear messages on the screen.
+Clears messages on the screen.
+
+### screenLog.destroy()
+
+Removes the logger from the UI and reverts to original console functionality.
 
 Browser Support
 -----
