@@ -29,14 +29,10 @@
 		logEl.appendChild(el);
 		// Scroll to last element
 		logEl.scrollTop = logEl.scrollHeight - logEl.clientHeight;
-
-		// Write the argument list to the console
-		_console.log.apply(console, arguments);
 	}
 
 	function clear() {
 		logEl.innerHTML = '';
-		_console.clear.call(console);
 	}
 
 	function init(options){
@@ -51,8 +47,8 @@
 			// Backup actual fns to keep it working together
 			_console.log = console.log;
 			_console.clear = console.clear;
-			console.log = log;
-			console.clear = clear;
+			console.log = originalFnCallDecorator(log, 'log');
+			console.clear = originalFnCallDecorator(clear, 'clear');
 		}
 	}
 
@@ -66,10 +62,9 @@
 	}
 
 	/**
-	 */
-	/**
 	 * Decorator for checking if isInitialized is set
 	 * @param  {Function} fn Fn to decorate
+	 * @return {Function}      Decorated fn.
 	 */
 	function checkInitDecorator(fn){
 		return function(){
@@ -78,10 +73,26 @@
 		};
 	}
 
+	/**
+	 * Decorator for calling the original console's fn at the end of
+	 * our overridden fn definitions.
+	 * @param  {Function} fn Fn to decorate
+	 * @param  {string} fn Name of original function
+	 * @return {Function}      Decorated fn.
+	 */
+	function originalFnCallDecorator(fn, fnName) {
+		return function(){
+			fn.apply(this, arguments);
+			if (typeof _console[fnName] === 'function') {
+				_console[fnName].apply(console, arguments);
+			}
+		};
+	}
+
 	// Public API
 	window.screenLog = {
 		init: init,
-		log: checkInitDecorator(log),
-		clear: checkInitDecorator(clear)
+		log: originalFnCallDecorator(checkInitDecorator(log), 'log'),
+		clear: originalFnCallDecorator(checkInitDecorator(clear), 'clear')
 	};
 })();
