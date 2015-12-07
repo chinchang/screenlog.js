@@ -1,11 +1,12 @@
-/*! screenlog - v0.1.2 - 2015-12-01
+/*! screenlog - v0.1.3 - 2015-12-07
 * https://github.com/chinchang/screenlog.js
 * Copyright (c) 2015 Kushagra Gour; Licensed MIT */
 
 (function () {
 
 	var logEl,
-		isInitialized = false;
+		isInitialized = false,
+		_console = {}; // backup console obj to contain references of overridden fns.
 
 	function createElement( tag, css ) {
 		var element = document.createElement( tag );
@@ -14,9 +15,6 @@
 	}
 
 	function createPanel(options) {
-		checkInitialized();
-
-		options = options || {};
 		options.bgColor = options.bgColor || 'black';
 		options.color = options.color || 'lightgreen';
 		options.css = options.css || '';
@@ -42,9 +40,7 @@
 	}
 
 	function init(options){
-		if (isInitialized) {
-			return;
-		}
+		if (isInitialized) { return; }
 
 		isInitialized = true;
 		options = options || {};
@@ -52,9 +48,19 @@
 		document.body.appendChild(logEl);
 
 		if (!options.freeConsole) {
-			console.log = log;
-			console.clear = clear;
+			// Backup actual fns to keep it working together
+			_console.log = console.log;
+			_console.clear = console.clear;
+			console.log = originalFnCallDecorator(log, 'log');
+			console.clear = originalFnCallDecorator(clear, 'clear');
 		}
+	}
+
+	function destroy() {
+		isInitialized = false;
+		console.log = _console.log;
+		console.clear = _console.clear;
+		logEl.remove();
 	}
 
 	/**
@@ -67,10 +73,9 @@
 	}
 
 	/**
-	 */
-	/**
 	 * Decorator for checking if isInitialized is set
 	 * @param  {Function} fn Fn to decorate
+	 * @return {Function}      Decorated fn.
 	 */
 	function checkInitDecorator(fn){
 		return function(){
@@ -79,10 +84,27 @@
 		};
 	}
 
+	/**
+	 * Decorator for calling the original console's fn at the end of
+	 * our overridden fn definitions.
+	 * @param  {Function} fn Fn to decorate
+	 * @param  {string} fn Name of original function
+	 * @return {Function}      Decorated fn.
+	 */
+	function originalFnCallDecorator(fn, fnName) {
+		return function(){
+			fn.apply(this, arguments);
+			if (typeof _console[fnName] === 'function') {
+				_console[fnName].apply(console, arguments);
+			}
+		};
+	}
+
 	// Public API
 	window.screenLog = {
 		init: init,
-		log: checkInitDecorator(log),
-		clear: checkInitDecorator(clear)
+		log: originalFnCallDecorator(checkInitDecorator(log), 'log'),
+		clear: originalFnCallDecorator(checkInitDecorator(clear), 'clear'),
+		destroy: checkInitDecorator(destroy)
 	};
 })();
