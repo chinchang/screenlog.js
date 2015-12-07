@@ -52,6 +52,13 @@
 		}
 	}
 
+	function destroy() {
+		isInitialized = false;
+		console.log = _console.log;
+		console.clear = _console.clear;
+		logEl.remove();
+	}
+
 	/**
 	 * Checking if isInitialized is set
 	 */
@@ -93,6 +100,7 @@
 	window.screenLog = {
 		init: init,
 		log: originalFnCallDecorator(checkInitDecorator(log), 'log'),
-		clear: originalFnCallDecorator(checkInitDecorator(clear), 'clear')
+		clear: originalFnCallDecorator(checkInitDecorator(clear), 'clear'),
+		destroy: checkInitDecorator(destroy)
 	};
 })();
