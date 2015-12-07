@@ -11,7 +11,6 @@
 
 	function createPanel(options) {
 		
-		options = options || {};
 		options.bgColor = options.bgColor || 'black';
 		options.color = options.color || 'lightgreen';
 		options.css = options.css || '';
