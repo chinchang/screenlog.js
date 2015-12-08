@@ -4,28 +4,28 @@
 		isInitialized = false,
 		_console = {}, // backup console obj to contain references of overridden fns.
 		_options = {
-							bgColor: 'black',
-							logColor: 'lightgreen',
-							warnColor: 'orange',
-							errorColor: 'red',
-							freeConsole: false,
-							css: ''
-						};
+						bgColor: 'black',
+						logColor: 'lightgreen',
+						warnColor: 'orange',
+						errorColor: 'red',
+						freeConsole: false,
+						css: ''
+					};
 
-	function createElement( tag, css ) {
-		var element = document.createElement( tag );
+	function createElement(tag, css) {
+		var element = document.createElement(tag);
 		element.style.cssText = css;
 		return element;
 	}
 
-	function createPanel(options) {
-		var div = createElement( 'div', 'font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:bold;padding:5px;text-align:left;opacity:0.8;position:fixed;right:0;top:0;min-width:200px;max-height:50vh;overflow:auto;background:' + _options.bgColor + ';' + _options.css);
+	function createPanel() {
+		var div = createElement('div', 'font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:bold;padding:5px;text-align:left;opacity:0.8;position:fixed;right:0;top:0;min-width:200px;max-height:50vh;overflow:auto;background:' + _options.bgColor + ';' + _options.css);
 		return div;
 	}
 
 	function genericLogger(color) {
 		return function() {
-			var el = createElement( 'div', 'line-height:18px;background:' +
+			var el = createElement('div', 'line-height:18px;background:' +
 				(logEl.children.length % 2 ? 'rgba(255,255,255,0.1)' : '') + ';color:' + color); // zebra lines
 			var val = [].slice.call(arguments).reduce(function(prev, arg) {
 				return prev + ' ' + arg;
@@ -43,17 +43,14 @@
 	}
 
 	function log() {
-		
 		return genericLogger(_options.logColor).apply(null, arguments);
 	}
 	
 	function warn() {
-		
 		return genericLogger(_options.warnColor).apply(null, arguments);
 	}
 	
 	function error() {
-		
 		return genericLogger(_options.errorColor).apply(null, arguments);
 	}
 	
@@ -98,7 +95,7 @@
 	/**
 	 * Checking if isInitialized is set
 	 */
-	function checkInitialized(){
+	function checkInitialized() {
 		if (!isInitialized){
 			throw 'You need to call `screenLog.init()` first.';
 		}
@@ -109,7 +106,7 @@
 	 * @param  {Function} fn Fn to decorate
 	 * @return {Function}      Decorated fn.
 	 */
-	function checkInitDecorator(fn){
+	function checkInitDecorator(fn) {
 		return function(){
 			checkInitialized();
 			return fn.apply(this, arguments);
