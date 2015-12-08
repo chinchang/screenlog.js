@@ -28,7 +28,7 @@
 				var offsetX = this.offsetLeft - e.clientX;
 				var offsetY = this.offsetTop - e.clientY;
 				
-				this.onmousemove = function(e) { this.style.top = (e.clientY + offsetY) + "px"; this.style.right = (window.innerWidth - e.clientX + offsetX) + "px"; };
+				this.onmousemove = function(e) { this.style.top = (e.clientY + offsetY) + "px"; this.style.right = (window.innerWidth - (e.clientX + offsetX + this.offsetWidth)) + "px"; };
 				this.onmouseup = function(e) { this.onmousemove = null; };
 			};
 		}
