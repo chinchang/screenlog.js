@@ -10,7 +10,8 @@
 						errorColor: 'red',
 						freeConsole: false,
 						css: '',
-						autoScroll: true
+						autoScroll: true,
+						draggable: true
 					};
 
 	function createElement(tag, css) {
@@ -21,6 +22,17 @@
 
 	function createPanel() {
 		var div = createElement('div', 'font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:bold;padding:5px;text-align:left;opacity:0.8;position:fixed;right:0;top:0;min-width:200px;max-height:50vh;overflow:auto;background:' + _options.bgColor + ';' + _options.css);
+		
+		if(_options.draggable) {
+			div.onmousedown = function(e) {
+				var offsetX = this.offsetLeft - e.clientX;
+				var offsetY = this.offsetTop - e.clientY;
+				
+				this.onmousemove = function(e) { this.style.top = (e.clientY + offsetY) + "px"; this.style.right = (window.innerWidth - e.clientX + offsetX) + "px"; };
+				this.onmouseup = function(e) { this.onmousemove = null; };
+			};
+		}
+		
 		return div;
 	}
 
@@ -34,8 +46,8 @@
 			el.textContent = val;
 
 			logEl.appendChild(el);
-			// Scroll to last element, if autoScroll option is set.
 			
+			// Scroll to last element, if autoScroll option is set.
 			if(_options.autoScroll) logEl.scrollTop = logEl.scrollHeight - logEl.clientHeight;
 		}
 	}
