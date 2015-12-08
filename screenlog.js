@@ -28,7 +28,7 @@
 			var el = createElement('div', 'line-height:18px;background:' +
 				(logEl.children.length % 2 ? 'rgba(255,255,255,0.1)' : '') + ';color:' + color); // zebra lines
 			var val = [].slice.call(arguments).reduce(function(prev, arg) {
-				return prev + ' ' + arg;
+				return prev + ' ' + (typeof arg === "object" ? JSON.stringify(arg) : arg); // JSON can't handle circular objects. Needs a graceful work-around.
 			}, '');
 			el.textContent = val;
 
@@ -96,7 +96,7 @@
 	 * Checking if isInitialized is set
 	 */
 	function checkInitialized() {
-		if (!isInitialized){
+		if (!isInitialized) {
 			throw 'You need to call `screenLog.init()` first.';
 		}
 	}
@@ -107,7 +107,7 @@
 	 * @return {Function}      Decorated fn.
 	 */
 	function checkInitDecorator(fn) {
-		return function(){
+		return function() {
 			checkInitialized();
 			return fn.apply(this, arguments);
 		};
@@ -121,7 +121,7 @@
 	 * @return {Function}      Decorated fn.
 	 */
 	function originalFnCallDecorator(fn, fnName) {
-		return function(){
+		return function() {
 			fn.apply(this, arguments);
 			if (typeof _console[fnName] === 'function') {
 				_console[fnName].apply(console, arguments);
