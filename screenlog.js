@@ -9,7 +9,8 @@
 						warnColor: 'orange',
 						errorColor: 'red',
 						freeConsole: false,
-						css: ''
+						css: '',
+						autoScroll: true
 					};
 
 	function createElement(tag, css) {
@@ -33,8 +34,9 @@
 			el.textContent = val;
 
 			logEl.appendChild(el);
-			// Scroll to last element
-			logEl.scrollTop = logEl.scrollHeight - logEl.clientHeight;
+			// Scroll to last element, if autoScroll option is set.
+			
+			if(_options.autoScroll) logEl.scrollTop = logEl.scrollHeight - logEl.clientHeight;
 		}
 	}
 
