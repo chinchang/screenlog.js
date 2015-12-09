@@ -21,7 +21,7 @@
 	}
 
 	function createPanel() {
-		var div = createElement('div', 'font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:bold;padding:5px;text-align:left;opacity:0.8;position:fixed;right:0;top:0;min-width:200px;max-height:50vh;overflow:auto;background:' + _options.bgColor + ';' + _options.css);
+		var div = createElement('div', 'font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:bold;padding:5px;text-align:left;opacity:0.8;position:fixed;right:0;top:0;z-index:1000;min-width:200px;max-height:50vh;overflow:auto;background:' + _options.bgColor + ';' + _options.css);
 		
 		if(_options.draggable) {
 			div.onmousedown = function(e) {
@@ -38,7 +38,7 @@
 
 	function genericLogger(color) {
 		return function() {
-			var el = createElement('div', 'line-height:18px;background:' +
+			var el = createElement('div', 'line-height:18px;min-height:18px;background:' +
 				(logEl.children.length % 2 ? 'rgba(255,255,255,0.1)' : '') + ';color:' + color); // zebra lines
 			var val = [].slice.call(arguments).reduce(function(prev, arg) {
 				return prev + ' ' + (typeof arg === "object" ? JSON.stringify(arg) : arg); // JSON can't handle circular objects. Needs a graceful work-around.
@@ -49,7 +49,7 @@
 			
 			// Scroll to last element, if autoScroll option is set.
 			if(_options.autoScroll) logEl.scrollTop = logEl.scrollHeight - logEl.clientHeight;
-		}
+		};
 	}
 
 	function clear() {
