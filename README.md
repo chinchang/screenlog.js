@@ -36,7 +36,7 @@ Intializes the screen logger. It creates a customizable panel on the screen.
 * `options` - A map of additional options.
 	* `color` - Text color. Default is `lightgreen`.
 	* `bgColor` - Background color of the log panel. Default is `black`.
-	* `releaseConsole` - By default console.log is overridden to log on screen. You can avoid this behaviour by setting `releaseConsole` to `true` and instead use `screenLog.log()` api. Default is `false`.
+	* `freeConsole` - By default console.log is overridden to log on screen. You can avoid this behaviour by setting `freeConsole` to `true` and instead use `screenLog.log()` api. Default is `false`.
 
 ### screenLog.log(obj1 [, obj2, ..., objN])
 
