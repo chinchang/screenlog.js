@@ -8,12 +8,12 @@
 	<script src="screenlog.js"></script>
 
 	<script>
-	screenLog.init();
+	screenLog.init({ autoScroll: false });
 	screenLog.log('String: Hello world');
 	screenLog.log('Numbers: ' + 124);
 	screenLog.log(21, 'multiple arguments');
 	screenLog.log('Arrays', [1, 2, 3]);
-	screenLog.log('Objects', JSON.stringify({a: 3}));
+	screenLog.log('Objects', {a: 3});
 
 	console.log('console.log also gets logged.')
 

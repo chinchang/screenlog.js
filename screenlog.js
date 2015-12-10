@@ -9,7 +9,8 @@
 						warnColor: 'orange',
 						errorColor: 'red',
 						freeConsole: false,
-						css: ''
+						css: '',
+						autoScroll: true
 					};
 	
 	function createElement(tag, css) {
@@ -28,14 +29,14 @@
 			var el = createElement('div', 'line-height:18px;min-height:18px;background:' +
 				(logEl.children.length % 2 ? 'rgba(255,255,255,0.1)' : '') + ';color:' + color); // zebra lines
 			var val = [].slice.call(arguments).reduce(function(prev, arg) {
-				return prev + ' ' + arg;
+				return prev + ' ' + (typeof arg === "object" ? JSON.stringify(arg) : arg);
 			}, '');
 			el.textContent = val;
 			
 			logEl.appendChild(el);
 			
-			// Scroll to last element.
-			logEl.scrollTop = logEl.scrollHeight - logEl.clientHeight;
+			// Scroll to last element, if autoScroll option is set.
+			if(_options.autoScroll) logEl.scrollTop = logEl.scrollHeight - logEl.clientHeight;
 		};
 	}
 	
