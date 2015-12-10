@@ -25,7 +25,7 @@
 	
 	function genericLogger(color) {
 		return function() {
-			var el = createElement('div', 'line-height:18px;background:' +
+			var el = createElement('div', 'line-height:18px;min-height:18px;background:' +
 				(logEl.children.length % 2 ? 'rgba(255,255,255,0.1)' : '') + ';color:' + color); // zebra lines
 			var val = [].slice.call(arguments).reduce(function(prev, arg) {
 				return prev + ' ' + arg;
