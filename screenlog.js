@@ -2,7 +2,7 @@
 	
 	var logEl,
 		isInitialized = false,
-		_console = {}; // backup console obj to contain references of overridden fns.
+		_console = {}, // backup console obj to contain references of overridden fns.
 		_options = {
 						bgColor: 'black',
 						logColor: 'lightgreen',
@@ -10,7 +10,8 @@
 						errorColor: 'red',
 						freeConsole: false,
 						css: '',
-						autoScroll: true
+						autoScroll: true,
+						draggable: true
 					};
 	
 	function createElement(tag, css) {
@@ -20,7 +21,18 @@
 	}
 	
 	function createPanel() {
-		var div = createElement('div', 'font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:bold;padding:5px;text-align:left;opacity:0.8;position:fixed;right:0;top:0;min-width:200px;max-height:50vh;overflow:auto;background:' + _options.bgColor + ';' + _options.css);
+		var div = createElement('div', 'font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:bold;padding:5px;text-align:left;opacity:0.8;position:fixed;right:0;top:0;z-index:1000;min-width:200px;max-height:50vh;overflow:auto;background:' + _options.bgColor + ';' + _options.css);
+		
+		if(_options.draggable) {
+			div.onmousedown = function(e) {
+				var offsetX = this.offsetLeft - e.clientX;
+				var offsetY = this.offsetTop - e.clientY;
+				
+				this.onmousemove = function(e) { this.style.top = (e.clientY + offsetY) + "px"; this.style.right = (window.innerWidth - (e.clientX + offsetX + this.offsetWidth)) + "px"; };
+			};
+			div.onmouseup = function(e) { this.onmousemove = null; };
+		}
+		
 		return div;
 	}
 	
