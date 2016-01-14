@@ -19,12 +19,7 @@
   "author": {
     "name": "Kushagra Gour"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/chinchang/screenlog.js/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/chinchang/screenlog.js/issues"
   },
