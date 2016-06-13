@@ -9,7 +9,7 @@ Enter `screenlog.js`. `screenlog.js` brings the developer console right on your 
 
 ### [Example](https://github.com/chinchang/screenlog.js/blob/master/example.html)
 
-![Screenshot](/screenshot.png)
+![Screenshot](/screenshot.gif)
 
 Usage
 -----
@@ -23,7 +23,7 @@ screenLog.init();
 ```
 
 And you are done!
-**By default, every next `console.log` in your app now starts logging on the screen too in addition to the console. Or you can use screenLog.log() instead to just log on the screen.**
+**By default, every next `console.log` in your app now starts logging on the screen as well as the console. Or you can use `screenLog.log()` instead to just log on the screen.**
 
 
 Public API
@@ -31,12 +31,12 @@ Public API
 
 ### screenLog.init([options])
 
-Intializes the screen logger. It creates a customizable panel on the screen.
+Initializes the screen logger. It creates a customizable panel on the screen.
 
 * `options` - A map of additional options.
 	* `color` - Text color. Default is `lightgreen`.
 	* `bgColor` - Background color of the log panel. Default is `black`.
-	* `releaseConsole` - By default console.log is overridden to log on screen. You can avoid this behaviour by setting `releaseConsole` to `true` and instead use `screenLog.log()` api. Default is `false`.
+	* `releaseConsole` - By default console.log is overridden to log on screen. You can avoid this behaviour by setting `releaseConsole` to `true` and instead use `screenLog.log()` API. Default is `false`.
 
 ### screenLog.log(obj1 [, obj2, ..., objN])
 
