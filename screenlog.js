@@ -4,14 +4,15 @@
 		isInitialized = false,
 		_console = {}; // backup console obj to contain references of overridden fns.
 		_options = {
-						bgColor: 'black',
-						logColor: 'lightgreen',
-						warnColor: 'orange',
-						errorColor: 'red',
-						freeConsole: false,
-						css: '',
-						autoScroll: true
-					};
+			bgColor: 'black',
+			logColor: 'lightgreen',
+			infoColor: 'blue',
+			warnColor: 'orange',
+			errorColor: 'red',
+			freeConsole: false,
+			css: '',
+			autoScroll: true
+		};
 	
 	function createElement(tag, css) {
 		var element = document.createElement(tag);
@@ -36,7 +37,9 @@
 			logEl.appendChild(el);
 			
 			// Scroll to last element, if autoScroll option is set.
-			if(_options.autoScroll) logEl.scrollTop = logEl.scrollHeight - logEl.clientHeight;
+			if(_options.autoScroll) {
+				logEl.scrollTop = logEl.scrollHeight - logEl.clientHeight;
+			}
 		};
 	}
 	
@@ -46,6 +49,10 @@
 	
 	function log() {
 		return genericLogger(_options.logColor).apply(null, arguments);
+	}
+	
+	function info() {
+		return genericLogger(_options.infoColor).apply(null, arguments);
 	}
 	
 	function warn() {
@@ -58,8 +65,9 @@
 	
 	function setOptions(options) {
 		for(var i in options)
-			if(options.hasOwnProperty(i) && _options.hasOwnProperty(i))
+			if(options.hasOwnProperty(i) && _options.hasOwnProperty(i)) {
 				_options[i] = options[i];
+			}
 	}
 	
 	function init(options) {
@@ -76,10 +84,12 @@
 			// Backup actual fns to keep it working together
 			_console.log = console.log;
 			_console.clear = console.clear;
+			_console.info = console.info;
 			_console.warn = console.warn;
 			_console.error = console.error;
 			console.log = originalFnCallDecorator(log, 'log');
 			console.clear = originalFnCallDecorator(clear, 'clear');
+			console.info = originalFnCallDecorator(clear, 'info');
 			console.warn = originalFnCallDecorator(warn, 'warn');
 			console.error = originalFnCallDecorator(error, 'error');
 		}
@@ -89,6 +99,7 @@
 		isInitialized = false;
 		console.log = _console.log;
 		console.clear = _console.clear;
+		console.info = _console.info;
 		console.warn = _console.warn;
 		console.error = _console.error;
 		logEl.remove();
@@ -136,6 +147,7 @@
 		init: init,
 		log: originalFnCallDecorator(checkInitDecorator(log), 'log'),
 		clear: originalFnCallDecorator(checkInitDecorator(clear), 'clear'),
+		info: originalFnCallDecorator(checkInitDecorator(clear), 'info'),
 		warn: originalFnCallDecorator(checkInitDecorator(warn), 'warn'),
 		error: originalFnCallDecorator(checkInitDecorator(error), 'error'),
 		destroy: checkInitDecorator(destroy)
