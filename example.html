@@ -20,8 +20,9 @@
 	var i = 10;
 	function log() {
 		console.log('Future log', Date.now());
-		console.error('Future log', Date.now());
-		console.warn('Future log', Date.now());
+		console.error('Future error', Date.now());
+		console.warn('Future warn', Date.now());
+		console.info('Future info', Date.now());
 		if (--i) { setTimeout(log, 1000); }
 	}
 	log();
