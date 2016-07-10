@@ -89,7 +89,7 @@
 			_console.error = console.error;
 			console.log = originalFnCallDecorator(log, 'log');
 			console.clear = originalFnCallDecorator(clear, 'clear');
-			console.info = originalFnCallDecorator(clear, 'info');
+			console.info = originalFnCallDecorator(info, 'info');
 			console.warn = originalFnCallDecorator(warn, 'warn');
 			console.error = originalFnCallDecorator(error, 'error');
 		}
