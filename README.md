@@ -23,7 +23,7 @@ screenLog.init();
 ```
 
 And you are done!
-**By default, every next `console.log` in your app now starts logging on the screen as well as the console. Or you can use `screenLog.log()` instead to just log on the screen.**
+**By default, every next `console.log` (or info, warn and error) in your app now starts logging on the screen as well as the console. Or you can use `screenLog.log()` instead to just log on the screen.**
 
 
 Public API
@@ -38,9 +38,9 @@ Initializes the screen logger. It creates a customizable panel on the screen.
 	* `bgColor` - Background color of the log panel. Default is `black`.
 	* `releaseConsole` - By default console.log is overridden to log on screen. You can avoid this behaviour by setting `releaseConsole` to `true` and instead use `screenLog.log()` API. Default is `false`.
 
-### screenLog.log(obj1 [, obj2, ..., objN])
+### screenLog.[log, warn, error, info](obj1 [, obj2, ..., objN])
 
-Logs a message on the screen.
+Logs a message on the screen. Eg. `screenLog.info('Info here')`.
 
 * `obj1 ... objN` - A list of JavaScript objects or strings to output. Just like `console.log`.
 
