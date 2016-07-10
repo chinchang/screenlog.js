@@ -75,7 +75,9 @@
 		
 		isInitialized = true;
 		
-		if(options) { setOptions(options) };
+		if(options) {
+			setOptions(options);
+		}
 		
 		logEl = createPanel();
 		document.body.appendChild(logEl);
