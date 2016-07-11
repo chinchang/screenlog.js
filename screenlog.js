@@ -2,7 +2,7 @@
 	
 	var logEl,
 		isInitialized = false,
-		_console = {}; // backup console obj to contain references of overridden fns.
+		_console = {}, // backup console obj to contain references of overridden fns.
 		_options = {
 			bgColor: 'black',
 			logColor: 'lightgreen',
