@@ -72,6 +72,6 @@ See the [Changelog](https://github.com/chinchang/screenlog.js/wiki/Changelog)
 License
 -----
 
-Copyright (c) 2015-2016 Kushagra Gour, http://kushagragour.in
+Copyright (c) 2015-2017 Kushagra Gour, http://kushagragour.in
 Licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
