@@ -32,10 +32,10 @@ And you are done!
 Initializes the screen logger. It creates a customizable panel on the screen.
 
 - `options` - A map of additional options.
-  _ `logColor` - Text color. Default is `lightgreen`.
-  _ `fontSize` - Font size of logs. Default is `1em`(Your browser's default).
-  _ `bgColor` - Background color of the log panel. Default is `black`.
-  _ `releaseConsole` - By default console.log is overridden to log on screen. You can avoid this behaviour by setting `releaseConsole` to `true` and instead use `screenLog.log()` API. Default is `false`.
+- `logColor` - Text color. Default is `lightgreen`.
+- `fontSize` - Font size of logs. Default is `1em`(Your browser's default).
+- `bgColor` - Background color of the log panel. Default is `black`.
+- `releaseConsole` - By default console.log is overridden to log on screen. You can avoid this behaviour by setting `releaseConsole` to `true` and instead use `screenLog.log()` API. Default is `false`.
 
 ### screenLog.[log, warn, error, info](obj1 [, obj2, ..., objN])
 
