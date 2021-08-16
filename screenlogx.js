@@ -12,7 +12,7 @@
     freeConsole: false,
     css: "",
     autoScroll: true,
-    getVisualArgs: function(logLevel, arguments) { return [Date.now(), logLevel].concat(Array.prototype.slice.call(arguments)); },
+    getVisualArgs: function(logLevel, args) { return [Date.now(), logLevel].concat(Array.prototype.slice.call(args)); },
     minLogLevel: "info"
   };
   var logLevel = {
@@ -20,7 +20,7 @@
     info: 2,
     warn: 3,
     error: 4
-  }
+  };
 
   function createElement(tag, css) {
     var element = document.createElement(tag);

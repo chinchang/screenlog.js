@@ -2,7 +2,7 @@
   "name": "screenlogx",
   "version": "0.3.1",
   "description": "Bring console.log on the screen",
-  "main": "screenlog.js",
+  "main": "screenlogx.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,7 +19,9 @@
   "author": {
     "name": "Kushagra Gour"
   },
-  "contributors": ["Gabriel Deliu"],
+  "contributors": [
+    "Gabriel Deliu"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/gabriel-deliu/screenlog.js/issues"
