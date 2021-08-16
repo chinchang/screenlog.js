@@ -1,6 +1,6 @@
 {
-  "name": "screenlog",
-  "version": "0.3.0",
+  "name": "screenlogx",
+  "version": "0.3.1",
   "description": "Bring console.log on the screen",
   "main": "screenlog.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chinchang/screenlog.js.git"
+    "url": "git+https://github.com/gabriel-deliu/screenlog.js.git"
   },
   "keywords": [
     "console",
@@ -19,11 +19,12 @@
   "author": {
     "name": "Kushagra Gour"
   },
+  "contributors": ["Gabriel Deliu"],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chinchang/screenlog.js/issues"
+    "url": "https://github.com/gabriel-deliu/screenlog.js/issues"
   },
-  "homepage": "https://github.com/chinchang/screenlog.js",
+  "homepage": "https://github.com/gabriel-deliu/screenlog.js",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.1",
