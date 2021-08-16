@@ -11,8 +11,16 @@
     fontSize: "1em",
     freeConsole: false,
     css: "",
-    autoScroll: true
+    autoScroll: true,
+    getVisualArgs: function(logLevel, arguments) { return [Date.now(), logLevel].concat(Array.prototype.slice.call(arguments)); },
+    minLogLevel: "info"
   };
+  var logLevel = {
+    log: 1,
+    info: 2,
+    warn: 3,
+    error: 4
+  }
 
   function createElement(tag, css) {
     var element = document.createElement(tag);
@@ -154,7 +162,9 @@
    */
   function originalFnCallDecorator(fn, fnName) {
     return function() {
-      fn.apply(this, arguments);
+      if(logLevel[_options.minLogLevel] && logLevel[fnName] >=  logLevel[_options.minLogLevel]) {
+        fn.apply(this, _options.getVisualArgs(fnName, arguments));  
+      }
       if (typeof _console[fnName] === "function") {
         _console[fnName].apply(console, arguments);
       }
