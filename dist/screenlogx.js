@@ -1,12 +1,12 @@
-/*! screenlog - v0.3.0 - 2019-01-25
-* https://github.com/chinchang/screenlog.js
-* Copyright (c) 2019 Kushagra Gour; Licensed  */
+/*! screenlogx - v0.3.1 - 2021-08-16
+* https://github.com/gabriel-deliu/screenlog.js
+* Copyright (c) 2021 Kushagra Gour; Licensed  */
 
 (function() {
   var logEl,
     isInitialized = false,
     _console = {}; // backup console obj to contain references of overridden fns.
-  _options = {
+  var _options = {
     bgColor: "black",
     logColor: "lightgreen",
     infoColor: "blue",
@@ -15,7 +15,15 @@
     fontSize: "1em",
     freeConsole: false,
     css: "",
-    autoScroll: true
+    autoScroll: true,
+    getVisualArgs: function(logLevel, args) { return [Date.now(), logLevel].concat(Array.prototype.slice.call(args)); },
+    minLogLevel: "info"
+  };
+  var logLevel = {
+    log: 1,
+    info: 2,
+    warn: 3,
+    error: 4
   };
 
   function createElement(tag, css) {
@@ -158,7 +166,9 @@
    */
   function originalFnCallDecorator(fn, fnName) {
     return function() {
-      fn.apply(this, arguments);
+      if(logLevel[_options.minLogLevel] && logLevel[fnName] >=  logLevel[_options.minLogLevel]) {
+        fn.apply(this, _options.getVisualArgs(fnName, arguments));  
+      }
       if (typeof _console[fnName] === "function") {
         _console[fnName].apply(console, arguments);
       }
