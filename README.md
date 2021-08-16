@@ -37,7 +37,7 @@ Initializes the screen logger. It creates a customizable panel on the screen.
 - `bgColor` - Background color of the log panel. Default is `black`.
 - `releaseConsole` - By default console.log is overridden to log on screen. You can avoid this behaviour by setting `releaseConsole` to `true` and instead use `screenLog.log()` API. Default is `false`.
 - `minLogLevel` - minimum log level that to be displayed on the screen. Can beL `log`, `info`, `warn`, `error`. Default is `warn`
-- `getVisualArgs` - function to allow visual log param customisation: function(logLevel, arguments) { ... return newArguments; }
+- `getVisualArgs` - function to allow visual log param customisation: function(logLevel, args) { ... return newArguments; }
 
 ### screenLog.[log, warn, error, info](obj1 [, obj2, ..., objN])
 
