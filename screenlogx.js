@@ -5,6 +5,7 @@
   var _options = {
     bgColor: "black",
     logColor: "lightgreen",
+    debugColor: "lightblue",
     infoColor: "blue",
     warnColor: "orange",
     errorColor: "red",
@@ -17,9 +18,10 @@
   };
   var logLevel = {
     log: 1,
-    info: 2,
-    warn: 3,
-    error: 4
+    debug: 2,
+    info: 3,
+    warn: 4,
+    error: 5
   };
 
   function createElement(tag, css) {
@@ -74,6 +76,10 @@
     return genericLogger(_options.logColor).apply(null, arguments);
   }
 
+  function debug() {
+    return genericLogger(_options.debugColor).apply(null, arguments);
+  }
+
   function info() {
     return genericLogger(_options.infoColor).apply(null, arguments);
   }
@@ -110,11 +116,13 @@
     if (!_options.freeConsole) {
       // Backup actual fns to keep it working together
       _console.log = console.log;
+      _console.debug = console.debug;      
       _console.clear = console.clear;
       _console.info = console.info;
       _console.warn = console.warn;
       _console.error = console.error;
       console.log = originalFnCallDecorator(log, "log");
+      console.debug = originalFnCallDecorator(debug, "debug");
       console.clear = originalFnCallDecorator(clear, "clear");
       console.info = originalFnCallDecorator(info, "info");
       console.warn = originalFnCallDecorator(warn, "warn");
@@ -125,6 +133,7 @@
   function destroy() {
     isInitialized = false;
     console.log = _console.log;
+    console.debug = _console.debug;
     console.clear = _console.clear;
     console.info = _console.info;
     console.warn = _console.warn;
@@ -175,6 +184,7 @@
   window.screenLog = {
     init: init,
     log: originalFnCallDecorator(checkInitDecorator(log), "log"),
+    debug: originalFnCallDecorator(checkInitDecorator(debug), "debug"),
     clear: originalFnCallDecorator(checkInitDecorator(clear), "clear"),
     info: originalFnCallDecorator(checkInitDecorator(clear), "info"),
     warn: originalFnCallDecorator(checkInitDecorator(warn), "warn"),
