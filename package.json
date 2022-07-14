@@ -1,6 +1,6 @@
 {
   "name": "screenlogx",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Bring console.log on the screen",
   "main": "screenlogx.js",
   "scripts": {
