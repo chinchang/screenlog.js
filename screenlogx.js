@@ -14,7 +14,8 @@
     css: "",
     autoScroll: true,
     getVisualArgs: function(logLevel, args) { return [Date.now(), logLevel].concat(Array.prototype.slice.call(args)); },
-    minLogLevel: "info"
+    minLogLevel: "info",
+    filterPattern: /^.*$/
   };
   var logLevel = {
     log: 1,
@@ -52,6 +53,7 @@
           ";color:" +
           color
       ); // zebra lines
+
       var val = [].slice.call(arguments).reduce(function(prev, arg) {
         return (
           prev + " " + (typeof arg === "object" ? JSON.stringify(arg) : arg)
@@ -116,7 +118,7 @@
     if (!_options.freeConsole) {
       // Backup actual fns to keep it working together
       _console.log = console.log;
-      _console.debug = console.debug;      
+      _console.debug = console.debug;
       _console.clear = console.clear;
       _console.info = console.info;
       _console.warn = console.warn;
@@ -171,8 +173,24 @@
    */
   function originalFnCallDecorator(fn, fnName) {
     return function() {
+
+      var isMatch = false;
+
+      for(var key in arguments) {
+        if(typeof arguments[key] === "string") {
+          if(!_options.filterPattern || _options.filterPattern.test(arguments[key])) {
+            isMatch = true;
+            break;
+          }
+        }
+      }
+
+      if(!isMatch) {
+        return;
+      }
+
       if(logLevel[_options.minLogLevel] && logLevel[fnName] >=  logLevel[_options.minLogLevel]) {
-        fn.apply(this, _options.getVisualArgs(fnName, arguments));  
+        fn.apply(this, _options.getVisualArgs(fnName, arguments));
       }
       if (typeof _console[fnName] === "function") {
         _console[fnName].apply(console, arguments);
