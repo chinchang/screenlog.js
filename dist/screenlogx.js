@@ -1,21 +1,32 @@
-/*! screenlog - v0.3.0 - 2019-01-25
-* https://github.com/chinchang/screenlog.js
-* Copyright (c) 2019 Kushagra Gour; Licensed  */
+/*! screenlogx - v0.3.2 - 2022-07-14
+* https://github.com/gabriel-deliu/screenlog.js
+* Copyright (c) 2022 Kushagra Gour; Licensed  */
 
 (function() {
   var logEl,
     isInitialized = false,
     _console = {}; // backup console obj to contain references of overridden fns.
-  _options = {
+  var _options = {
     bgColor: "black",
     logColor: "lightgreen",
+    debugColor: "lightblue",
     infoColor: "blue",
     warnColor: "orange",
     errorColor: "red",
     fontSize: "1em",
     freeConsole: false,
     css: "",
-    autoScroll: true
+    autoScroll: true,
+    getVisualArgs: function(logLevel, args) { return [Date.now(), logLevel].concat(Array.prototype.slice.call(args)); },
+    minLogLevel: "info",
+    filterPattern: /^.*$/
+  };
+  var logLevel = {
+    log: 1,
+    debug: 2,
+    info: 3,
+    warn: 4,
+    error: 5
   };
 
   function createElement(tag, css) {
@@ -46,6 +57,7 @@
           ";color:" +
           color
       ); // zebra lines
+
       var val = [].slice.call(arguments).reduce(function(prev, arg) {
         return (
           prev + " " + (typeof arg === "object" ? JSON.stringify(arg) : arg)
@@ -68,6 +80,10 @@
 
   function log() {
     return genericLogger(_options.logColor).apply(null, arguments);
+  }
+
+  function debug() {
+    return genericLogger(_options.debugColor).apply(null, arguments);
   }
 
   function info() {
@@ -106,11 +122,13 @@
     if (!_options.freeConsole) {
       // Backup actual fns to keep it working together
       _console.log = console.log;
+      _console.debug = console.debug;
       _console.clear = console.clear;
       _console.info = console.info;
       _console.warn = console.warn;
       _console.error = console.error;
       console.log = originalFnCallDecorator(log, "log");
+      console.debug = originalFnCallDecorator(debug, "debug");
       console.clear = originalFnCallDecorator(clear, "clear");
       console.info = originalFnCallDecorator(info, "info");
       console.warn = originalFnCallDecorator(warn, "warn");
@@ -121,6 +139,7 @@
   function destroy() {
     isInitialized = false;
     console.log = _console.log;
+    console.debug = _console.debug;
     console.clear = _console.clear;
     console.info = _console.info;
     console.warn = _console.warn;
@@ -158,7 +177,25 @@
    */
   function originalFnCallDecorator(fn, fnName) {
     return function() {
-      fn.apply(this, arguments);
+
+      var isMatch = false;
+
+      for(var key in arguments) {
+        if(typeof arguments[key] === "string") {
+          if(!_options.filterPattern || _options.filterPattern.test(arguments[key])) {
+            isMatch = true;
+            break;
+          }
+        }
+      }
+
+      if(!isMatch) {
+        return;
+      }
+
+      if(logLevel[_options.minLogLevel] && logLevel[fnName] >=  logLevel[_options.minLogLevel]) {
+        fn.apply(this, _options.getVisualArgs(fnName, arguments));
+      }
       if (typeof _console[fnName] === "function") {
         _console[fnName].apply(console, arguments);
       }
@@ -169,6 +206,7 @@
   window.screenLog = {
     init: init,
     log: originalFnCallDecorator(checkInitDecorator(log), "log"),
+    debug: originalFnCallDecorator(checkInitDecorator(debug), "debug"),
     clear: originalFnCallDecorator(checkInitDecorator(clear), "clear"),
     info: originalFnCallDecorator(checkInitDecorator(clear), "info"),
     warn: originalFnCallDecorator(checkInitDecorator(warn), "warn"),

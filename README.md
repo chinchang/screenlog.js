@@ -1,4 +1,4 @@
-# screenlog.js [![npm version](https://badge.fury.io/js/screenlog.svg)](http://badge.fury.io/js/screenlog)
+# screenlogx (forked from https://github.com/chinchang/screenlog.js)
 
 _Bring console.log, on the screen_
 
@@ -36,6 +36,8 @@ Initializes the screen logger. It creates a customizable panel on the screen.
 - `fontSize` - Font size of logs. Default is `1em`(Your browser's default).
 - `bgColor` - Background color of the log panel. Default is `black`.
 - `releaseConsole` - By default console.log is overridden to log on screen. You can avoid this behaviour by setting `releaseConsole` to `true` and instead use `screenLog.log()` API. Default is `false`.
+- `minLogLevel` - minimum log level that to be displayed on the screen. Can beL `log`, `info`, `warn`, `error`. Default is `warn`
+- `getVisualArgs` - function to allow visual log param customisation: function(logLevel, args) { ... return newArguments; }
 
 ### screenLog.[log, warn, error, info](obj1 [, obj2, ..., objN])
 
