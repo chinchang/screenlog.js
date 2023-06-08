@@ -1,9 +1,11 @@
 (function() {
   var logEl,
     isInitialized = false,
+
     _console = {}; // backup console obj to contain references of overridden fns.
+
   _options = {
-    bgColor: "black",
+    bgColor: "yellow",
     logColor: "lightgreen",
     infoColor: "blue",
     warnColor: "orange",
@@ -16,7 +18,9 @@
 
   function createElement(tag, css) {
     var element = document.createElement(tag);
+    
     element.style.cssText = css;
+    
     return element;
   }
 
@@ -25,19 +29,24 @@
       "div",
       "z-index:2147483647;font-family:Helvetica,Arial,sans-serif;font-size:" +
         _options.fontSize +
-        ";padding:5px;text-align:left;opacity:0.8;position:fixed;right:0;top:0;min-width:200px;max-height:50vh;overflow:auto;background:" +
+        ";padding:5px;text-align:left;opacity:0.8;position:fixed;right:0;top:0;min-width:250px;max-height:50vh;overflow:auto;background:" +
         _options.bgColor +
         ";" +
         _options.css
     );
+    
     return div;
   }
 
   function genericLogger(color) {
     return function() {
+      var imgElement = document.createElement("img");
+      imgElement.style.cssText = "z-index:2147483647;height:20px;width:20px;margin-left:6px;";
+      imgElement.src = "./assets/twitter.png";
+
       var el = createElement(
         "div",
-        "line-height:1.7em;min-height:1.7em;background:" +
+        "display:flex;align-items:center;line-height:3em;min-height:3em;background:" +
           (logEl.children.length % 2 ? "rgba(255,255,255,0.1)" : "") +
           ";color:" +
           color
@@ -47,9 +56,11 @@
           prev + " " + (typeof arg === "object" ? JSON.stringify(arg) : arg)
         );
       }, "");
+     
       el.textContent = val;
-
+      el.appendChild(imgElement);
       logEl.appendChild(el);
+      
 
       // Scroll to last element, if autoScroll option is set.
       if (_options.autoScroll) {
