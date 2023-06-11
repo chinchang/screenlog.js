@@ -5,7 +5,7 @@
     _console = {}; // backup console obj to contain references of overridden fns.
 
   _options = {
-    bgColor: "yellow",
+    bgColor: "#F5F5F5",
     logColor: "lightgreen",
     infoColor: "blue",
     warnColor: "orange",
@@ -15,6 +15,22 @@
     css: "",
     autoScroll: true
   };
+
+  _colors = {
+    warn:"background-color: #ffff00;",
+    info:"background-color: #75b6e7;",
+    error:"background-color: #EF5350;",
+    assert:"background-color: #AB47BC;",
+    log:"background-color: #64DD17;"
+  }
+
+  _icons = {
+    warn:'<i class="fa fa-light fa-triangle-exclamation fa-lg"></i>',
+    debug:'<i class="fa fa-light fa-code fa-lg"></i>',
+    error:'<i class="fa fa-light fa-bug fa-lg"></i>',
+    assert:'<i class="fa-solid fa-a fa-lg"></i>',
+    log:'<i class="fa fa-light fa-circle-info fa-lg"></i>'
+  }
 
   function createElement(tag, css) {
     var element = document.createElement(tag);
@@ -38,8 +54,9 @@
     return div;
   }
 
-  function genericLogger(color) {
+  function genericLogger(color, errorType) {
     return function() {
+
       var imgElement = document.createElement("img");
       imgElement.style.cssText = "z-index:2147483647;height:20px;width:20px;margin-left:6px;";
       imgElement.src = "./assets/twitter.png";
@@ -51,15 +68,22 @@
           ";color:" +
           color
       ); // zebra lines
+
+      var el1 = createElement(
+        "div",
+        "display: flex;height: 24px;width: 240px;align-items: center;" + _colors[errorType]
+      );
+
+
       var val = [].slice.call(arguments).reduce(function(prev, arg) {
         return (
           prev + " " + (typeof arg === "object" ? JSON.stringify(arg) : arg)
         );
       }, "");
      
-      el.textContent = val;
-      el.appendChild(imgElement);
-      logEl.appendChild(el);
+      el1.textContent = val;
+      //el1.appendChild(imgElement);
+      logEl.appendChild(el1);
       
 
       // Scroll to last element, if autoScroll option is set.
@@ -74,19 +98,19 @@
   }
 
   function log() {
-    return genericLogger(_options.logColor).apply(null, arguments);
+    return genericLogger(_options.logColor, "log").apply(null, arguments);
   }
 
   function info() {
-    return genericLogger(_options.infoColor).apply(null, arguments);
+    return genericLogger(_options.infoColor, "info").apply(null, arguments);
   }
 
   function warn() {
-    return genericLogger(_options.warnColor).apply(null, arguments);
+    return genericLogger(_options.warnColor, "warn").apply(null, arguments);
   }
 
   function error() {
-    return genericLogger(_options.errorColor).apply(null, arguments);
+    return genericLogger(_options.errorColor, "error").apply(null, arguments);
   }
 
   function setOptions(options) {
